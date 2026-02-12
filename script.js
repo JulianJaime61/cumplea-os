@@ -1,79 +1,142 @@
-const canvas = document.getElementById('particleCanvas');
-const ctx = canvas.getContext('2d');
+const screen = document.getElementById("screen");
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 let particles = [];
-let interactionCount = 0;
-const maxInteractions = 10;
-const messageContainer = document.getElementById('messageContainer');
+const icons = ["💖","⭐","😏","😉"];
+let confetiActive = false;
 
-// Frases coquetas personalizadas para Gaby
-const phrases = [
-    "Gaby, tu sonrisa ilumina todo 😍",
-    "Cada toque tuyo hace magia ✨",
-    "¡Eres increíble, Gaby! 💖",
-    "Tus ojos brillan más que las estrellas 🌟",
-    "No puedo dejar de pensar en ti 😉",
-    "Eres un sueño hecho realidad 🌸",
-    "Gaby, cada día contigo sería perfecto 💕"
-];
-
-// Partícula
+// Partículas y confeti
 class Particle {
-    constructor(x, y) {
+    constructor(x, y, icon, size, vx, vy) {
         this.x = x;
         this.y = y;
-        this.size = Math.random() * 10 + 5;
-        this.speedX = (Math.random() - 0.5) * 3;
-        this.speedY = (Math.random() - 0.5) * 3;
-        this.color = `hsl(${Math.random() * 360}, 100%, 70%)`;
-        this.opacity = 1;
-    }
-    update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        this.opacity -= 0.02;
+        this.icon = icon;
+        this.size = size;
+        this.vx = vx;
+        this.vy = vy;
+        this.alpha = 1;
+        this.rotation = Math.random()*360;
     }
     draw() {
-        ctx.fillStyle = `rgba(${this.color.match(/\d+/g)[0]},${this.color.match(/\d+/g)[1]},${this.color.match(/\d+/g)[2]},${this.opacity})`;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
+        ctx.save();
+        ctx.globalAlpha = this.alpha;
+        ctx.translate(this.x,this.y);
+        ctx.rotate(this.rotation*Math.PI/180);
+        ctx.font = `${this.size}px sans-serif`;
+        ctx.fillText(this.icon,0,0);
+        ctx.restore();
+    }
+    update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        if(confetiActive) this.vy += 0.05; // gravedad confeti
+        this.alpha -= 0.005;
+        this.rotation += 2;
+        if(this.alpha<0) this.alpha=0;
     }
 }
 
-function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach((particle, index) => {
-        particle.update();
-        particle.draw();
-        if (particle.opacity <= 0) particles.splice(index, 1);
+function createParticles(x,y,count=25){
+    for(let i=0;i<count;i++){
+        const icon = icons[Math.floor(Math.random()*icons.length)];
+        const size = Math.random()*30 + 20;
+        const vx = (Math.random()-0.5)*4;
+        const vy = (Math.random()-0.5)*4;
+        particles.push(new Particle(x,y,icon,size,vx,vy));
+    }
+}
+
+function animateParticles(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach((p,i)=>{
+        p.update();
+        p.draw();
+        if(p.alpha<=0) particles.splice(i,1);
     });
-    requestAnimationFrame(animate);
+    requestAnimationFrame(animateParticles);
 }
-animate();
+animateParticles();
 
-// Al tocar o mover
-function interact(e) {
-    interactionCount++;
-    const x = e.clientX || e.touches[0].clientX;
-    const y = e.clientY || e.touches[0].clientY;
+setTimeout(step1, 1500);
 
-    // Crear varias partículas
-    for (let i = 0; i < 10; i++) {
-        particles.push(new Particle(x, y));
+function step1(){
+    screen.innerHTML = `<p class="glitch">Error 404: Esto NO es IT 😅</p>`;
+    setTimeout(step2,2000);
+}
+
+function step2(){ createButton(); }
+
+function createButton(){
+    const btn = document.createElement("div");
+    btn.className = "bubble";
+    btn.textContent = "Tócalo si te atreves 😉";
+    btn.style.top = `${Math.random()*60 + 20}%`;
+    btn.style.left = `${Math.random()*60 + 20}%`;
+    btn.style.pointerEvents = "auto";
+    screen.appendChild(btn);
+
+    btn.addEventListener("click", e=>{
+        createParticles(e.clientX,e.clientY,50);
+        btn.remove();
+        spawnBubbles();
+    });
+}
+
+function spawnBubbles(){
+    const messages = [
+        {text:"Sonríe 😄"}, 
+        {text:"Sigue 😏"}, 
+        {text:"Una más 😉"}, 
+        {text:"Casi… 💖"}
+    ];
+
+    messages.forEach((msg,i)=>{
+        setTimeout(()=>{
+            const bubble = document.createElement("div");
+            bubble.className="bubble";
+            bubble.textContent = msg.text;
+            bubble.style.top = `${Math.random()*70 + 15}%`;
+            bubble.style.left = `${Math.random()*70 + 15}%`;
+            bubble.style.pointerEvents = "auto";
+            screen.appendChild(bubble);
+
+            bubble.addEventListener("click", e=>{
+                createParticles(e.clientX,e.clientY,50);
+                bubble.remove();
+                changeBackground();
+                if(i===messages.length-1) showFinalMessage();
+            });
+        },i*700);
+    });
+}
+
+function changeBackground(){
+    const r = Math.floor(Math.random()*50 + 50);
+    const g = Math.floor(Math.random()*50 + 50);
+    const b = Math.floor(Math.random()*50 + 50);
+    document.body.style.background = `radial-gradient(circle at top, rgb(${r},${g},${b}), #1a1a1a)`;
+}
+
+// Mensaje final con confeti
+function showFinalMessage(){
+    confetiActive = true;
+    // Generar confeti inicial
+    for(let i=0;i<100;i++){
+        const x = Math.random()*canvas.width;
+        const y = Math.random()*canvas.height/2;
+        const size = Math.random()*25 + 15;
+        const vx = (Math.random()-0.5)*2;
+        const vy = Math.random()*2 + 1;
+        const icon = icons[Math.floor(Math.random()*icons.length)];
+        particles.push(new Particle(x,y,icon,size,vx,vy));
     }
 
-    // Mostrar frase aleatoria
-    const phrase = phrases[Math.floor(Math.random() * phrases.length)];
-    messageContainer.textContent = phrase;
-
-    // Si pasa el umbral de interacciones, mostrar mensaje secreto
-    if (interactionCount >= maxInteractions) {
-        messageContainer.innerHTML = `
-      Feliz cumpleaños, Gaby 🎂💖<br>
-      — esto lo hice solo para ti
+    screen.innerHTML = `
+        <p class="highlight">Gaby 🎉</p>
+        <p>Feliz cumpleaños 🎂</p>
+        <p class="glitch">Solo quería sacarte una sonrisa 😊</p>
     `;
-    }
 }
