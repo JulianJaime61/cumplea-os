@@ -5,10 +5,10 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 let particles = [];
-const icons = ["💖","⭐","😏","😉"];
+const icons = ["💖","⭐","😏","😉","😍"];
 let confetiActive = false;
 
-// Partículas y confeti
+// Partículas avanzadas con rebote
 class Particle {
     constructor(x, y, icon, size, vx, vy) {
         this.x = x;
@@ -32,9 +32,16 @@ class Particle {
     update() {
         this.x += this.vx;
         this.y += this.vy;
-        if(confetiActive) this.vy += 0.05; // gravedad confeti
-        this.alpha -= 0.005;
-        this.rotation += 2;
+        if(confetiActive){
+            this.vy += 0.06; // gravedad confeti
+            if(this.y > canvas.height - this.size) { // rebote
+                this.y = canvas.height - this.size;
+                this.vy *= -0.5;
+                this.vx *= 0.98;
+            }
+        }
+        this.alpha -= 0.004;
+        this.rotation += 2 + Math.random();
         if(this.alpha<0) this.alpha=0;
     }
 }
@@ -51,6 +58,16 @@ function createParticles(x,y,count=25){
 
 function animateParticles(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
+    // Fondo animado gradiente
+    const gradient = ctx.createRadialGradient(canvas.width/2,canvas.height/2,0,canvas.width/2,canvas.height/2,canvas.height);
+    const r = Math.floor(Math.sin(Date.now()/2000)*50 + 80);
+    const g = Math.floor(Math.sin(Date.now()/1500)*50 + 80);
+    const b = Math.floor(Math.sin(Date.now()/1000)*50 + 80);
+    gradient.addColorStop(0, `rgb(${r},${g},${b})`);
+    gradient.addColorStop(1, "#1a1a1a");
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
     particles.forEach((p,i)=>{
         p.update();
         p.draw();
@@ -90,7 +107,7 @@ function spawnBubbles(){
         {text:"Sonríe 😄"}, 
         {text:"Sigue 😏"}, 
         {text:"Una más 😉"}, 
-        {text:"Casi… 💖"}
+        {text:"Casi… 😍"}
     ];
 
     messages.forEach((msg,i)=>{
@@ -106,25 +123,16 @@ function spawnBubbles(){
             bubble.addEventListener("click", e=>{
                 createParticles(e.clientX,e.clientY,50);
                 bubble.remove();
-                changeBackground();
                 if(i===messages.length-1) showFinalMessage();
             });
         },i*700);
     });
 }
 
-function changeBackground(){
-    const r = Math.floor(Math.random()*50 + 50);
-    const g = Math.floor(Math.random()*50 + 50);
-    const b = Math.floor(Math.random()*50 + 50);
-    document.body.style.background = `radial-gradient(circle at top, rgb(${r},${g},${b}), #1a1a1a)`;
-}
-
-// Mensaje final con confeti
 function showFinalMessage(){
     confetiActive = true;
     // Generar confeti inicial
-    for(let i=0;i<100;i++){
+    for(let i=0;i<120;i++){
         const x = Math.random()*canvas.width;
         const y = Math.random()*canvas.height/2;
         const size = Math.random()*25 + 15;
