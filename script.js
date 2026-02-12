@@ -5,7 +5,7 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 let particles = [];
-const icons = ["💖","⭐","😏","😉","😍"];
+const icons = ["💖","⭐","😏","😉"];
 let confetiActive = false;
 
 // Partículas avanzadas con rebote
@@ -107,7 +107,7 @@ function spawnBubbles(){
         {text:"Sonríe 😄"}, 
         {text:"Sigue 😏"}, 
         {text:"Una más 😉"}, 
-        {text:"Casi… 😍"}
+        {text:"Casi… 💖"}
     ];
 
     messages.forEach((msg,i)=>{
@@ -148,3 +148,4 @@ function showFinalMessage(){
         <p class="glitch">Solo quería sacarte una sonrisa 😊</p>
     `;
 }
+
