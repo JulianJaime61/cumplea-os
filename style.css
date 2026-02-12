@@ -1,33 +1,61 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body, html {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    font-family: 'Segoe UI', sans-serif;
+    background: radial-gradient(circle at top, #0a0a0a, #1a1a1a);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    touch-action: manipulation;
 }
 
-html, body {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  font-family: 'Comic Sans MS', cursive, sans-serif;
-  background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fad0c4, #fbc2eb);
-  background-size: 400% 400%;
-  animation: gradientMove 15s ease infinite;
+#screen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+    text-align: center;
+    z-index: 10;
+    pointer-events: none;
 }
 
-@keyframes gradientMove {
-  0% {background-position:0% 50%;}
-  50% {background-position:100% 50%;}
-  100% {background-position:0% 50%;}
+.glitch {
+    font-size: 22px;
+    animation: glitchAnim 1.2s infinite;
 }
 
-#messageContainer {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  font-size: 1.5rem;
-  color: #fff;
-  text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
-  pointer-events: none;
+.highlight {
+    font-size: 28px;
+    font-weight: 600;
+    margin: 10px 0;
+}
+
+.bubble {
+    position: absolute;
+    background: rgba(255, 182, 193, 0.85);
+    border-radius: 50%;
+    padding: 16px;
+    font-size: 16px;
+    cursor: pointer;
+    user-select: none;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.5);
+    transition: transform 0.2s ease, background 0.3s ease;
+}
+
+.bubble:active { transform: scale(1.3) rotate(5deg); }
+
+@keyframes glitchAnim {
+    0%,100%{opacity:0.5; transform:translateX(0);}
+    20%{opacity:1; transform:translateX(-2px);}
+    40%{opacity:0.7; transform:translateX(2px);}
+    60%{opacity:1; transform:translateX(-1px);}
+    80%{opacity:0.8; transform:translateX(1px);}
 }
