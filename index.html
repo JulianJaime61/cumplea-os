@@ -12,6 +12,21 @@
     <!-- Canvas de partículas (corazones/estrellitas) -->
     <canvas id="fx"></canvas>
 
+    <section class="bdayOverlay" id="bdayOverlay" hidden>
+        <div class="bdayInner">
+            <div class="bdayTop">🎂</div>
+            <div class="bdayName">Gaby</div>
+            <div class="bdayTitle">Feliz cumpleaños ✨</div>
+            <div class="bdayText">
+                Hoy todo debería hacerte <span class="pulseWord">sonreír</span>…<br>
+                y me gustó la idea de ser parte de eso aunque sea un poquito 🤍
+            </div>
+
+            <div class="bdayHint">Toca para seguir ✨</div>
+        </div>
+    </section>
+
+
     <!-- UI -->
     <main class="ui" id="ui">
         <div class="top">
@@ -27,7 +42,8 @@
 
         <section class="center">
             <h1 class="title" id="title">Toca la pantalla 👆</h1>
-            <p class="subtitle" id="subtitle">Solo… prométeme una cosa: no le llames a IT 😅</p>
+            <p class="subtitle" id="subtitle">Solo… prométeme una cosa:
+                déjame sacarte una sonrisa hoy ✨</p>
 
             <div class="hint" id="hint">
                 Tip: toca y arrastra para “pintar” el fondo ✨<br />
@@ -36,29 +52,6 @@
         </section>
 
         <section class="bubbleArea" id="bubbleArea" aria-hidden="true"></section>
-
-        <section class="finalToast" id="final" hidden>
-            <div class="toastCard">
-                <div class="toastTop">
-                    <span class="toastBadge">🎂</span>
-                    <span class="toastName">Gaby</span>
-                    <button class="toastClose" id="closeFinal" aria-label="Cerrar">✕</button>
-                </div>
-
-                <p class="toastMsg">
-                    Feliz cumpleaños ✨<br>
-                    Hoy te mereces algo bonito…<br>
-                    y sí, esto lo hice solo para ti 😊
-                </p>
-
-                <p class="toastSub">Si te saqué una sonrisita, ya valió la pena 🤍</p>
-
-                <div class="toastActions">
-                    <button class="btnSoft" id="moreFxBtn">Más brillitos ✨</button>
-                    <button class="btn" id="replayBtn">Repetir</button>
-                </div>
-            </div>
-        </section>
 
     </main>
 
