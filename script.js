@@ -1,5 +1,5 @@
 // ======= Config =======
-const SECRET_TARGET = 7;        // cuántas “acciones” para desbloquear
+const SECRET_TARGET = 9;        // cuántas “acciones” para desbloquear
 const HOLD_MS = 900;            // mantener presionado para modo secreto
 const MAX_BUBBLES = 3;
 
@@ -332,3 +332,4 @@ document.addEventListener("pointerup", onPointerUp, { passive: true });
 // Start loop
 updateLock();
 draw();
+
