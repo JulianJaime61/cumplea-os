@@ -1,5 +1,5 @@
 // ======= Config =======
-const SECRET_TARGET = 9;        // cuántas “acciones” para desbloquear
+const SECRET_TARGET = 6;        // cuántas “acciones” para desbloquear
 const HOLD_MS = 900;            // mantener presionado para modo secreto
 const MAX_BUBBLES = 3;
 
@@ -105,6 +105,22 @@ function spawnBurst(x, y, power = 1) {
     }
 }
 
+function sparkleRain(durationMs = 900) {
+  const start = performance.now();
+
+  function tick(now) {
+    // durante ~1 segundo suelta chispitas desde arriba
+    if (now - start < durationMs) {
+      const x = rand(40, w - 40);
+      const y = rand(20, 80);
+      spawnBurst(x, y, 0.55); // suave, no explosivo
+      requestAnimationFrame(tick);
+    }
+  }
+  requestAnimationFrame(tick);
+}
+
+
 // Ondas (ripple)
 function spawnRipple(x, y) {
     ripples.push({ x, y, r: 0, a: 0.22 });
@@ -151,20 +167,22 @@ function addSecret(n = 1) {
 }
 
 // Desbloqueo final
-function unlock() {
-    if (!final.hidden) return;
+function unlock(){
+  if (!final.hidden) return;
 
-    setPill("Ok… desbloqueaste el secreto 🤍");
+  setPill("Ok… desbloqueaste el secreto 🤍");
 
-    // Burst suave, no tan explosivo
-    for (let i = 0; i < 4; i++) {
-        setTimeout(() => spawnBurst(rand(80, w - 80), rand(120, h - 260), 1.15), i * 140);
-    }
+  sparkleRain(900); // ✨ lluvia suave
 
-    setTimeout(() => {
-        final.hidden = false;
-    }, 420);
+  for (let i=0;i<4;i++){
+    setTimeout(() => spawnBurst(rand(80, w-80), rand(120, h-260), 1.15), i*140);
+  }
+
+  setTimeout(() => {
+    final.hidden = false; // muestra el toast
+  }, 420);
 }
+
 
 
 // ======= Render loop =======
