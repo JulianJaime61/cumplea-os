@@ -160,162 +160,192 @@ body{
   to{ opacity:1; transform: translateY(0) scale(1); }
 }
 
-/* Final */
-.final{
+
+@media (prefers-reduced-motion: reduce){
+  *{ animation: none !important; transition: none !important; }
+}
+
+
+
+/* Overlay cumpleaños (aparece al desbloquear) */
+.bdayOverlay{
   position:absolute;
   inset:0;
   display:flex;
   align-items:center;
   justify-content:center;
   padding: 22px;
-  pointer-events:auto; /* para el botón */
+  pointer-events:auto; /* permite tocar para cerrar */
+  background: radial-gradient(circle at 50% 40%, rgba(255,255,255,.10), rgba(0,0,0,.55));
+  backdrop-filter: blur(6px);
+  animation: bdayFadeIn 380ms ease forwards;
 }
 
-.finalCard{
+.bdayInner{
   width:min(520px, 92vw);
-  border-radius: 26px;
-  padding: 22px 20px;
-  background: linear-gradient(135deg, rgba(255,255,255,.18), rgba(255,255,255,.10));
-  border: 1px solid rgba(255,255,255,.16);
-  box-shadow: 0 25px 80px rgba(0,0,0,.45);
-  backdrop-filter: blur(12px);
+  border-radius: 28px;
+  padding: 22px 18px;
   text-align:center;
+  background: linear-gradient(135deg, rgba(255,255,255,.20), rgba(255,255,255,.10));
+  border: 1px solid rgba(255,255,255,.18);
+  box-shadow: 0 28px 90px rgba(0,0,0,.45);
 }
 
-.badge{
-  width: 54px;
-  height: 54px;
-  display:grid;
-  place-items:center;
-  margin: 0 auto 8px;
-  border-radius: 16px;
-  background: rgba(255,255,255,.12);
-  border: 1px solid rgba(255,255,255,.14);
+.bdayTop{
+  font-size: 34px;
+  filter: drop-shadow(0 0 18px rgba(255,255,255,.25));
 }
 
-.finalCard h2{
-  margin: 6px 0 6px;
+.bdayName{
+  margin-top: 6px;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: .2px;
+  opacity: .95;
+}
+
+.bdayTitle{
+  margin-top: 6px;
   font-size: 28px;
+  font-weight: 700;
 }
 
-.finalMsg{
-  margin: 10px 0 0;
-  font-size: 17px;
+.bdayText{
+  margin-top: 10px;
+  font-size: 16px;
   line-height: 1.45;
-  color: rgba(255,255,255,.92);
+  opacity: .92;
 }
 
-.finalSub{
-  margin: 10px 0 0;
-  font-size: 13px;
-  opacity: .8;
+.bdayHint{
+  margin-top: 12px;
+  font-size: 12px;
+  opacity: .75;
 }
 
-.btn{
-  margin-top: 14px;
-  border: 0;
-  border-radius: 18px;
-  padding: 12px 16px;
-  font-size: 15px;
-  cursor:pointer;
-  color: white;
-  background: linear-gradient(135deg, #25D366, #1ebe5d);
-  box-shadow: 0 12px 26px rgba(37,211,102,.35);
+.bdayOverlay.hide{
+  animation: bdayFadeOut 320ms ease forwards;
 }
 
-.btn:active{ transform: scale(.98); }
-
-@media (prefers-reduced-motion: reduce){
-  *{ animation: none !important; transition: none !important; }
+@keyframes bdayFadeIn{
+  from{ opacity:0; transform: scale(.98); }
+  to{ opacity:1; transform: scale(1); }
+}
+@keyframes bdayFadeOut{
+  from{ opacity:1; transform: scale(1); }
+  to{ opacity:0; transform: scale(.98); }
 }
 
-/* FINAL tipo "toast" (no tapa pantalla) */
-.finalToast{
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  display:flex;
-  align-items:flex-end;
-  justify-content:center;
-  padding: 18px;
-}
-
-.toastCard{
-  pointer-events:auto;
-  width: min(520px, 92vw);
-  border-radius: 22px;
-  padding: 14px 14px;
-  background: linear-gradient(135deg, rgba(255,255,255,.18), rgba(255,255,255,.10));
-  border: 1px solid rgba(255,255,255,.16);
-  box-shadow: 0 25px 80px rgba(0,0,0,.35);
-  backdrop-filter: blur(12px);
-  animation: pop 420ms ease forwards;
-}
-
-.toastTop{
+.bdayOverlay{
+  position: fixed;
+  inset: 0;
   display:flex;
   align-items:center;
-  gap:10px;
-  justify-content:space-between;
-  margin-bottom: 6px;
+  justify-content:center;
+  padding: 22px;
+  background: radial-gradient(circle at 50% 40%, rgba(255,255,255,.10), rgba(0,0,0,.55));
+  backdrop-filter: blur(6px);
+  z-index: 10;
+  animation: bdayFadeIn 380ms ease forwards;
 }
 
-.toastBadge{
-  width: 36px;
-  height: 36px;
-  border-radius: 12px;
-  display:grid;
-  place-items:center;
-  background: rgba(255,255,255,.12);
-  border: 1px solid rgba(255,255,255,.14);
+.bdayInner{
+  width:min(520px, 92vw);
+  border-radius: 28px;
+  padding: 22px 18px;
+  text-align:center;
+  background: linear-gradient(135deg, rgba(255,255,255,.20), rgba(255,255,255,.10));
+  border: 1px solid rgba(255,255,255,.18);
+  box-shadow: 0 28px 90px rgba(0,0,0,.45);
 }
 
-.toastName{
-  flex:1;
-  text-align:left;
-  font-weight:600;
-  letter-spacing:.2px;
+.bdayTop{ font-size: 34px; }
+.bdayName{ margin-top: 6px; font-size: 22px; font-weight: 700; opacity:.95; }
+.bdayTitle{ margin-top: 6px; font-size: 28px; font-weight: 700; }
+.bdayText{ margin-top: 10px; font-size: 16px; line-height: 1.45; opacity:.92; }
+.bdayHint{ margin-top: 12px; font-size: 12px; opacity: .75; }
+
+.bdayOverlay.hide{
+  animation: bdayFadeOut 320ms ease forwards;
+}
+
+@keyframes bdayFadeIn{
+  from{ opacity:0; transform: scale(.98); }
+  to{ opacity:1; transform: scale(1); }
+}
+@keyframes bdayFadeOut{
+  from{ opacity:1; transform: scale(1); }
+  to{ opacity:0; transform: scale(.98); }
+}
+
+/* Overlay Cumpleaños (aparece al desbloquear el secreto) */
+.bdayOverlay{
+  position: fixed;
+  inset: 0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding: 22px;
+  background: radial-gradient(circle at 50% 40%, rgba(255,255,255,.10), rgba(0,0,0,.55));
+  backdrop-filter: blur(6px);
+  z-index: 10;
+  animation: bdayFadeIn 380ms ease forwards;
+}
+
+.bdayInner{
+  width:min(520px, 92vw);
+  border-radius: 28px;
+  padding: 22px 18px;
+  text-align:center;
+  background: linear-gradient(135deg, rgba(255,255,255,.20), rgba(255,255,255,.10));
+  border: 1px solid rgba(255,255,255,.18);
+  box-shadow: 0 28px 90px rgba(0,0,0,.45);
+}
+
+.bdayTop{
+  font-size: 34px;
+  filter: drop-shadow(0 0 18px rgba(255,255,255,.25));
+}
+
+.bdayName{
+  margin-top: 6px;
+  font-size: 22px;
+  font-weight: 700;
   opacity:.95;
 }
 
-.toastClose{
-  border:0;
-  background: rgba(255,255,255,.10);
-  border: 1px solid rgba(255,255,255,.12);
-  color: rgba(255,255,255,.85);
-  width: 34px;
-  height: 34px;
-  border-radius: 12px;
-  cursor:pointer;
+.bdayTitle{
+  margin-top: 6px;
+  font-size: 28px;
+  font-weight: 700;
 }
 
-.toastMsg{
-  margin: 6px 0 0;
-  font-size: 15px;
+.bdayText{
+  margin-top: 10px;
+  font-size: 16px;
   line-height: 1.45;
-  color: rgba(255,255,255,.92);
+  opacity:.92;
 }
 
-.toastSub{
-  margin: 8px 0 0;
-  font-size: 12px;
-  opacity: .82;
-}
-
-.toastActions{
-  display:flex;
-  gap:10px;
+.bdayHint{
   margin-top: 12px;
+  font-size: 12px;
+  opacity: .75;
 }
 
-.btnSoft{
-  flex:1;
-  border: 1px solid rgba(255,255,255,.16);
-  background: rgba(255,255,255,.10);
-  color: rgba(255,255,255,.92);
-  border-radius: 18px;
-  padding: 12px 12px;
-  font-size: 14px;
-  cursor:pointer;
+.bdayOverlay.hide{
+  animation: bdayFadeOut 320ms ease forwards;
 }
-.btnSoft:active{ transform: scale(.98); }
+
+@keyframes bdayFadeIn{
+  from{ opacity:0; transform: scale(.98); }
+  to{ opacity:1; transform: scale(1); }
+}
+@keyframes bdayFadeOut{
+  from{ opacity:1; transform: scale(1); }
+  to{ opacity:0; transform: scale(.98); }
+}
+
+.bdayOverlay[hidden]{
+  display: none !important;
+}
