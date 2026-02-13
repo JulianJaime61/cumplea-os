@@ -1,60 +1,68 @@
 <!doctype html>
 <html lang="es">
+
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Un secreto 🎉</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Un secreto 🎉</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-  <!-- Canvas de partículas (corazones/estrellitas) -->
-  <canvas id="fx"></canvas>
+    <!-- Canvas de partículas (corazones/estrellitas) -->
+    <canvas id="fx"></canvas>
 
-  <!-- UI -->
-  <main class="ui" id="ui">
-    <div class="top">
-      <div class="pill" id="statusPill">
-        Inicializando soporte… <span class="blink">●</span>
-      </div>
+    <!-- UI -->
+    <main class="ui" id="ui">
+        <div class="top">
+            <div class="pill" id="statusPill">
+                Inicializando soporte… <span class="blink">●</span>
+            </div>
 
-      <div class="lock" id="lock">
-        <span class="lockIcon" id="lockIcon">🔒</span>
-        <span class="lockText" id="lockText">Secreto: 0/7</span>
-      </div>
-    </div>
+            <div class="lock" id="lock">
+                <span class="lockIcon" id="lockIcon">🔒</span>
+                <span class="lockText" id="lockText">Secreto: 0/9</span>
+            </div>
+        </div>
 
-    <section class="center">
-      <h1 class="title" id="title">Toca la pantalla 👆</h1>
-      <p class="subtitle" id="subtitle">Solo… prométeme una cosa: no le llames a IT 😅</p>
+        <section class="center">
+            <h1 class="title" id="title">Toca la pantalla 👆</h1>
+            <p class="subtitle" id="subtitle">Solo… prométeme una cosa: no le llames a IT 😅</p>
 
-      <div class="hint" id="hint">
-        Tip: toca y arrastra para “pintar” el fondo ✨<br/>
-        Mantén presionado 1 segundo para un “modo secreto”.
-      </div>
-    </section>
+            <div class="hint" id="hint">
+                Tip: toca y arrastra para “pintar” el fondo ✨<br />
+                Mantén presionado 1 segundo para un “modo secreto”.
+            </div>
+        </section>
 
-    <section class="bubbleArea" id="bubbleArea" aria-hidden="true"></section>
+        <section class="bubbleArea" id="bubbleArea" aria-hidden="true"></section>
 
-    <section class="final" id="final" hidden>
-      <div class="finalCard">
-        <div class="badge">🎂</div>
-        <h2>Gaby</h2>
-        <p class="finalMsg">
-          Feliz cumpleaños ✨<br/>
-          Hoy te mereces algo diferente…<br/>
-          y sí, esto lo hice <strong>solo para ti</strong> 😊
-        </p>
+        <section class="finalToast" id="final" hidden>
+            <div class="toastCard">
+                <div class="toastTop">
+                    <span class="toastBadge">🎂</span>
+                    <span class="toastName">Gaby</span>
+                    <button class="toastClose" id="closeFinal" aria-label="Cerrar">✕</button>
+                </div>
 
-        <p class="finalSub">
-          PD: si te saqué una sonrisa, misión cumplida 😏
-        </p>
+                <p class="toastMsg">
+                    Feliz cumpleaños ✨<br>
+                    Hoy te mereces algo bonito…<br>
+                    y sí, esto lo hice solo para ti 😊
+                </p>
 
-        <button class="btn" id="replayBtn">Repetir (porque sí)</button>
-      </div>
-    </section>
-  </main>
+                <p class="toastSub">Si te saqué una sonrisita, ya valió la pena 🤍</p>
 
-  <script src="script.js"></script>
+                <div class="toastActions">
+                    <button class="btnSoft" id="moreFxBtn">Más brillitos ✨</button>
+                    <button class="btn" id="replayBtn">Repetir</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
 </body>
+
 </html>
