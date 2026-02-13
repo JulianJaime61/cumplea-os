@@ -349,3 +349,42 @@ body{
 .bdayOverlay[hidden]{
   display: none !important;
 }
+
+.pulseWord{
+  display: inline-block;
+  font-weight: 700;
+  letter-spacing: .2px;
+  text-shadow: 0 0 18px rgba(255,255,255,.18);
+  animation: softPulse 1.8s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes softPulse{
+  0%, 100% { transform: scale(1); opacity: .92; }
+  50%      { transform: scale(1.06); opacity: 1; }
+}
+
+.pulseWord{
+  position: relative;
+}
+
+.pulseWord::after{
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: -10px;
+  right: -10px;
+  bottom: -6px;
+  border-radius: 12px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.22), transparent);
+  opacity: 0;
+  animation: shine 2.8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes shine{
+  0%   { transform: translateX(-40%); opacity: 0; }
+  25%  { opacity: .9; }
+  55%  { opacity: 0; }
+  100% { transform: translateX(40%); opacity: 0; }
+}
