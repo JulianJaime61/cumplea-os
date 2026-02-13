@@ -228,3 +228,94 @@ body{
 @media (prefers-reduced-motion: reduce){
   *{ animation: none !important; transition: none !important; }
 }
+
+/* FINAL tipo "toast" (no tapa pantalla) */
+.finalToast{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  padding: 18px;
+}
+
+.toastCard{
+  pointer-events:auto;
+  width: min(520px, 92vw);
+  border-radius: 22px;
+  padding: 14px 14px;
+  background: linear-gradient(135deg, rgba(255,255,255,.18), rgba(255,255,255,.10));
+  border: 1px solid rgba(255,255,255,.16);
+  box-shadow: 0 25px 80px rgba(0,0,0,.35);
+  backdrop-filter: blur(12px);
+  animation: pop 420ms ease forwards;
+}
+
+.toastTop{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  justify-content:space-between;
+  margin-bottom: 6px;
+}
+
+.toastBadge{
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  display:grid;
+  place-items:center;
+  background: rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.14);
+}
+
+.toastName{
+  flex:1;
+  text-align:left;
+  font-weight:600;
+  letter-spacing:.2px;
+  opacity:.95;
+}
+
+.toastClose{
+  border:0;
+  background: rgba(255,255,255,.10);
+  border: 1px solid rgba(255,255,255,.12);
+  color: rgba(255,255,255,.85);
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  cursor:pointer;
+}
+
+.toastMsg{
+  margin: 6px 0 0;
+  font-size: 15px;
+  line-height: 1.45;
+  color: rgba(255,255,255,.92);
+}
+
+.toastSub{
+  margin: 8px 0 0;
+  font-size: 12px;
+  opacity: .82;
+}
+
+.toastActions{
+  display:flex;
+  gap:10px;
+  margin-top: 12px;
+}
+
+.btnSoft{
+  flex:1;
+  border: 1px solid rgba(255,255,255,.16);
+  background: rgba(255,255,255,.10);
+  color: rgba(255,255,255,.92);
+  border-radius: 18px;
+  padding: 12px 12px;
+  font-size: 14px;
+  cursor:pointer;
+}
+.btnSoft:active{ transform: scale(.98); }
